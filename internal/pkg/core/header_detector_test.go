@@ -18,7 +18,7 @@ package core_test
 
 import (
 	"fmt"
-	"github.com/fbiville/headache/internal/pkg/core"
+	"github.com/elzorrorebelde/remedy/internal/pkg/core"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"regexp"

@@ -22,7 +22,7 @@ import (
 	"sort"
 	"strings"
 
-	. "github.com/fbiville/headache/internal/pkg/core"
+	. "github.com/elzorrorebelde/remedy/internal/pkg/core"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
@@ -90,16 +90,16 @@ func namesOf(styles map[string]CommentStyle) []string {
 func sortedStylesInSchema(schemaFileLocation string) []string {
 	bytes, err := ioutil.ReadFile(schemaFileLocation)
 	Expect(err).NotTo(HaveOccurred())
-	var schema HeadacheSchema
+	var schema RemedySchema
 	err = json.Unmarshal(bytes, &schema)
 	return schema.SortedStyleNames()
 }
 
-type HeadacheSchema struct {
-	Properties HeadacheProperties `json:"properties"`
+type RemedySchema struct {
+	Properties RemedyProperties `json:"properties"`
 }
 
-type HeadacheProperties struct {
+type RemedyProperties struct {
 	Style CommentStyleProperty `json:"style"`
 }
 
@@ -107,7 +107,7 @@ type CommentStyleProperty struct {
 	Names []string `json:"enum"`
 }
 
-func (schema *HeadacheSchema) SortedStyleNames() []string {
+func (schema *RemedySchema) SortedStyleNames() []string {
 	result := schema.Properties.Style.Names
 	sort.Strings(result)
 	return result

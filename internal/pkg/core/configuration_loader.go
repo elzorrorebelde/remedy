@@ -19,7 +19,7 @@ package core
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/fbiville/headache/internal/pkg/fs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/fs"
 	json_schema "github.com/xeipuuv/gojsonschema"
 	"strings"
 )

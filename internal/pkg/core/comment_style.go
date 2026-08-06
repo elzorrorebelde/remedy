@@ -20,7 +20,7 @@ import (
 	"log"
 	"strings"
 
-	styles "github.com/fbiville/headache/internal/pkg/core/comment_styles"
+	styles "github.com/elzorrorebelde/remedy/internal/pkg/core/comment_styles"
 )
 
 type CommentStyle interface {
@@ -66,7 +66,7 @@ func ParseCommentStyle(name string) CommentStyle {
 			return style
 		}
 	}
-	log.Fatalf("headache configuration error, unexpected comment style\n\tmust be one of: " +
+	log.Fatalf("remedy configuration error, unexpected comment style\n\tmust be one of: " +
 		strings.Join(extractKeys(commentStyles), ","))
 	return nil
 }

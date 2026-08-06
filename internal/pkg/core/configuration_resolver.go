@@ -17,8 +17,8 @@
 package core
 
 import (
-	"github.com/fbiville/headache/internal/pkg/fs"
-	"github.com/fbiville/headache/internal/pkg/vcs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/fs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/vcs"
 	"log"
 	"regexp"
 )

@@ -17,8 +17,8 @@
 package vcs_test
 
 import (
-	. "github.com/fbiville/headache/internal/pkg/vcs"
-	"github.com/fbiville/headache/internal/pkg/vcs_mocks"
+	. "github.com/elzorrorebelde/remedy/internal/pkg/vcs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/vcs_mocks"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"time"

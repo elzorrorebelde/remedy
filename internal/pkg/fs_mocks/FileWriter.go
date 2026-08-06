@@ -2,7 +2,7 @@
 
 package fs_mocks
 
-import fs "github.com/fbiville/headache/internal/pkg/fs"
+import fs "github.com/elzorrorebelde/remedy/internal/pkg/fs"
 import mock "github.com/stretchr/testify/mock"
 import os "os"
 

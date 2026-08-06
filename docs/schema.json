@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://fbiville.github.io/headache/schema.json",
-  "title": "Headache configuration",
-  "description": "Schema for headache configuration",
+  "$id": "https://raw.githubusercontent.com/elzorrorebelde/remedy/master/docs/schema.json",
+  "title": "Remedy configuration",
+  "description": "Schema for remedy configuration",
   "type": "object",
   "properties": {
     "headerFile": {

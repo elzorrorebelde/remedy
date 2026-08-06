@@ -18,8 +18,8 @@ package core_test
 
 import (
 	"fmt"
-	"github.com/fbiville/headache/internal/pkg/core"
-	"github.com/fbiville/headache/internal/pkg/fs_mocks"
+	"github.com/elzorrorebelde/remedy/internal/pkg/core"
+	"github.com/elzorrorebelde/remedy/internal/pkg/fs_mocks"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	json "github.com/xeipuuv/gojsonschema"
@@ -42,7 +42,7 @@ var _ = Describe("Configuration loader", func() {
 			SchemaLocation: "file://../../../docs/schema.json",
 			SchemaLoader:   &LocalSchemaLoader{},
 		}
-		configurationUri = fmt.Sprintf("file://%s", "headache.json")
+		configurationUri = fmt.Sprintf("file://%s", "remedy.json")
 	})
 
 	AfterEach(func() {

@@ -16,7 +16,7 @@
 
 package core
 
-import "github.com/fbiville/headache/internal/pkg/helper"
+import "github.com/elzorrorebelde/remedy/internal/pkg/helper"
 
 type VersionedHeaderTemplate struct {
 	Current  *HeaderTemplate

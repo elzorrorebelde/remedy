@@ -1,7 +1,7 @@
 .PHONY: all build clean test gen-mocks check-mockery help
 
-OUTPUT = ./headache
-GO_SOURCES = $(shell find . -type f -name '*.go')
+OUTPUT=./remedy
+GO_SOURCES=$(shell find . -type f -name '*.go')
 GOBIN ?= $(shell go env GOPATH)/bin
 MOCKERY=go run github.com/vektra/mockery/cmd/mockery
 
@@ -28,7 +28,7 @@ install: build ## copy the binary to GOBIN
 	cp $(OUTPUT) $(GOBIN)
 
 $(OUTPUT): $(GO_SOURCES)
-	GO111MODULE=on go build -gcflags="all=-N -l" ./cmd/headache
+	GO111MODULE=on go build -gcflags="all=-N -l" ./cmd/remedy
 
 clean: ## remove the binary
 	rm -f $(OUTPUT)

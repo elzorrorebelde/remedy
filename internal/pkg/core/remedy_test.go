@@ -17,24 +17,24 @@
 package core_test
 
 import (
-	"github.com/fbiville/headache/internal/pkg/core"
-	"github.com/fbiville/headache/internal/pkg/fs"
-	"github.com/fbiville/headache/internal/pkg/fs_mocks"
-	"github.com/fbiville/headache/internal/pkg/vcs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/core"
+	"github.com/elzorrorebelde/remedy/internal/pkg/fs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/fs_mocks"
+	"github.com/elzorrorebelde/remedy/internal/pkg/vcs"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"os"
 	"regexp"
 )
 
-var _ = Describe("Headache", func() {
+var _ = Describe("Remedy", func() {
 
 	var (
 		t          GinkgoTInterface
 		fileReader *fs_mocks.FileReader
 		fileWriter *fs_mocks.FileWriter
 		fileSystem *fs.FileSystem
-		headache   *core.Headache
+		remedy   *core.Remedy
 		delimiter  string
 	)
 
@@ -43,7 +43,7 @@ var _ = Describe("Headache", func() {
 		fileReader = new(fs_mocks.FileReader)
 		fileWriter = new(fs_mocks.FileWriter)
 		fileSystem = &fs.FileSystem{FileWriter: fileWriter, FileReader: fileReader}
-		headache = &core.Headache{Fs: fileSystem}
+		remedy = &core.Remedy{Fs: fileSystem}
 		delimiter = "\n\n"
 	})
 
@@ -74,7 +74,7 @@ var _ = Describe("Headache", func() {
 			Files:          []vcs.FileChange{{Path: fileName}},
 		}
 
-		headache.Run(&configuration)
+		remedy.Run(&configuration)
 	})
 
 	It("updates the header according to the comment style", func() {
@@ -103,7 +103,7 @@ var _ = Describe("Headache", func() {
 			Files:          []vcs.FileChange{{Path: fileName}},
 		}
 
-		headache.Run(&configuration)
+		remedy.Run(&configuration)
 	})
 
 	It("updates the header according to the header parameters", func() {
@@ -129,7 +129,7 @@ var _ = Describe("Headache", func() {
 			Files:          []vcs.FileChange{{Path: fileName}},
 		}
 
-		headache.Run(&configuration)
+		remedy.Run(&configuration)
 	})
 
 	It("automatically inserts the year", func() {
@@ -154,7 +154,7 @@ var _ = Describe("Headache", func() {
 			Files:          []vcs.FileChange{{Path: fileName, CreationYear: 2022}},
 		}
 
-		headache.Run(&configuration)
+		remedy.Run(&configuration)
 	})
 
 	It("automatically inserts the year interval", func() {
@@ -179,7 +179,7 @@ var _ = Describe("Headache", func() {
 			Files:          []vcs.FileChange{{Path: fileName, CreationYear: 2022, LastEditionYear: 2034}},
 		}
 
-		headache.Run(&configuration)
+		remedy.Run(&configuration)
 	})
 
 	It("automatically prevents the end year insertion if it's the same as the start year", func() {
@@ -204,7 +204,7 @@ var _ = Describe("Headache", func() {
 			Files:          []vcs.FileChange{{Path: fileName, CreationYear: 2022, LastEditionYear: 2022}},
 		}
 
-		headache.Run(&configuration)
+		remedy.Run(&configuration)
 	})
 
 	It("automatically inserts the start year only", func() {
@@ -229,7 +229,7 @@ var _ = Describe("Headache", func() {
 			Files:          []vcs.FileChange{{Path: fileName, CreationYear: 2022, LastEditionYear: 2034}},
 		}
 
-		headache.Run(&configuration)
+		remedy.Run(&configuration)
 	})
 
 	It("matches similar header with punctuation variation and replaces it", func() {
@@ -258,7 +258,7 @@ var _ = Describe("Headache", func() {
 			Files:          []vcs.FileChange{{Path: fileName, CreationYear: 2022, LastEditionYear: 2024}},
 		}
 
-		headache.Run(&configuration)
+		remedy.Run(&configuration)
 	})
 
 	It("preserves existing start year when it is lower than the configured one", func() {
@@ -287,7 +287,7 @@ var _ = Describe("Headache", func() {
 			Files:          []vcs.FileChange{{Path: fileName, CreationYear: 2016, LastEditionYear: 2022}},
 		}
 
-		headache.Run(&configuration)
+		remedy.Run(&configuration)
 	})
 
 	It("replaces single future copyright header date with single commit year", func() {

@@ -17,9 +17,9 @@
 package fs_test
 
 import (
-	. "github.com/fbiville/headache/internal/pkg/fs"
-	"github.com/fbiville/headache/internal/pkg/fs_mocks"
-	"github.com/fbiville/headache/internal/pkg/vcs"
+	. "github.com/elzorrorebelde/remedy/internal/pkg/fs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/fs_mocks"
+	"github.com/elzorrorebelde/remedy/internal/pkg/vcs"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"github.com/stretchr/testify/mock"

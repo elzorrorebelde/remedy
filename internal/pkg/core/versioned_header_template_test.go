@@ -17,7 +17,7 @@
 package core_test
 
 import (
-	. "github.com/fbiville/headache/internal/pkg/core"
+	. "github.com/elzorrorebelde/remedy/internal/pkg/core"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

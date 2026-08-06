@@ -19,13 +19,13 @@ package core_test
 import (
 	"strings"
 
-	"github.com/fbiville/headache/internal/pkg/core"
-	"github.com/fbiville/headache/internal/pkg/core_mocks"
-	"github.com/fbiville/headache/internal/pkg/fs"
-	"github.com/fbiville/headache/internal/pkg/fs_mocks"
-	"github.com/fbiville/headache/internal/pkg/helper_mocks"
-	. "github.com/fbiville/headache/internal/pkg/vcs"
-	"github.com/fbiville/headache/internal/pkg/vcs_mocks"
+	"github.com/elzorrorebelde/remedy/internal/pkg/core"
+	"github.com/elzorrorebelde/remedy/internal/pkg/core_mocks"
+	"github.com/elzorrorebelde/remedy/internal/pkg/fs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/fs_mocks"
+	"github.com/elzorrorebelde/remedy/internal/pkg/helper_mocks"
+	. "github.com/elzorrorebelde/remedy/internal/pkg/vcs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/vcs_mocks"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

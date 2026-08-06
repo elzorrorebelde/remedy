@@ -18,8 +18,8 @@ package main
 
 import (
 	"flag"
-	. "github.com/fbiville/headache/internal/pkg/core"
-	"github.com/fbiville/headache/internal/pkg/fs"
+	. "github.com/elzorrorebelde/remedy/internal/pkg/core"
+	"github.com/elzorrorebelde/remedy/internal/pkg/fs"
 	"log"
 )
 
@@ -45,14 +45,14 @@ func main() {
 		ExecutionTracker: executionTracker,
 		PathMatcher:      &fs.ZglobPathMatcher{},
 	}
-	headache := &Headache{Fs: fileSystem}
+	remedy := &Remedy{Fs: fileSystem}
 	// dependency graph - end
 
 	configFile, configuration := loadConfiguration(configLoader, configurationResolver)
 	if len(configuration.Files) > 0 {
-		headache.Run(configuration)
+		remedy.Run(configuration)
 		if err := executionTracker.TrackExecution(configFile); err != nil {
-			log.Printf("headache warning, could not save current execution, see below for details\n\t%v\n", err)
+			log.Printf("remedy warning, could not save current execution, see below for details\n\t%v\n", err)
 		}
 	} else {
 		log.Print("No files to process")
@@ -62,16 +62,16 @@ func main() {
 }
 
 func loadConfiguration(configLoader *ConfigurationFileLoader, configResolver *ConfigurationResolver) (*string, *ChangeSet) {
-	configFile := flag.String("configuration", "headache.json", "Path to configuration file")
+	configFile := flag.String("configuration", "remedy.json", "Path to configuration file")
 	flag.Parse()
 
 	userConfiguration, err := configLoader.ValidateAndLoad(*configFile)
 	if err != nil {
-		log.Fatalf("headache configuration error, cannot load\n\t%v\n", err)
+		log.Fatalf("remedy configuration error, cannot load\n\t%v\n", err)
 	}
 	configuration, err := configResolver.ResolveEagerly(userConfiguration)
 	if err != nil {
-		log.Fatalf("headache configuration error, cannot parse\n\t%v\n", err)
+		log.Fatalf("remedy configuration error, cannot parse\n\t%v\n", err)
 	}
 	return configFile, configuration
 }

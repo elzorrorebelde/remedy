@@ -17,7 +17,7 @@
 package fs
 
 import (
-	"github.com/fbiville/headache/internal/pkg/vcs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/vcs"
 	"github.com/mattn/go-zglob"
 )
 

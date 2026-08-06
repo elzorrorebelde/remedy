@@ -17,7 +17,7 @@
 package helper_test
 
 import (
-	. "github.com/fbiville/headache/internal/pkg/helper"
+	. "github.com/elzorrorebelde/remedy/internal/pkg/helper"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

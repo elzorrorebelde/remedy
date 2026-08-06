@@ -17,8 +17,8 @@
 package core_test
 
 import (
-	"github.com/fbiville/headache/internal/pkg/core"
-	styles "github.com/fbiville/headache/internal/pkg/core/comment_styles"
+	"github.com/elzorrorebelde/remedy/internal/pkg/core"
+	styles "github.com/elzorrorebelde/remedy/internal/pkg/core/comment_styles"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

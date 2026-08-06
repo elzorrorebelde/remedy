@@ -101,7 +101,7 @@ func (*OsFileReader) Open(name string) (http.File, error) {
 func UnsafeClose(file File) {
 	err := file.Close()
 	if err != nil {
-		log.Fatalf("headache execution error, cannot close file %v\n\t%v", file, err)
+		log.Fatalf("remedy execution error, cannot close file %v\n\t%v", file, err)
 	}
 }
 

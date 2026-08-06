@@ -1,9 +1,9 @@
 package core
 
 import (
-	"github.com/fbiville/headache/internal/pkg/fs"
-	"github.com/fbiville/headache/internal/pkg/helper"
-	"github.com/fbiville/headache/internal/pkg/vcs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/fs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/helper"
+	"github.com/elzorrorebelde/remedy/internal/pkg/vcs"
 )
 
 func DefaultEnvironment() *Environment {
@@ -13,7 +13,7 @@ func DefaultEnvironment() *Environment {
 		},
 		FileSystem:     fs.DefaultFileSystem(),
 		Clock:          helper.SystemClock{},
-		SchemaLocation: "https://fbiville.github.io/headache/schema.json",
+		SchemaLocation: "https://raw.githubusercontent.com/elzorrorebelde/remedy/master/docs/schema.json",
 	}
 }
 

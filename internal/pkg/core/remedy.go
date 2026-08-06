@@ -25,27 +25,27 @@ import (
 	"strings"
 	tpl "text/template"
 
-	"github.com/fbiville/headache/internal/pkg/fs"
-	"github.com/fbiville/headache/internal/pkg/vcs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/fs"
+	"github.com/elzorrorebelde/remedy/internal/pkg/vcs"
 )
 
-type Headache struct {
+type Remedy struct {
 	Fs *fs.FileSystem
 }
 
-func (headache *Headache) Run(config *ChangeSet) {
+func (remedy *Remedy) Run(config *ChangeSet) {
 	currentHeaderDetectionRegex := config.HeaderRegex
 	newHeaderTemplate := config.HeaderContents
 	for _, file := range config.Files {
-		headache.UpdateFile(file, currentHeaderDetectionRegex, newHeaderTemplate)
+		remedy.UpdateFile(file, currentHeaderDetectionRegex, newHeaderTemplate)
 	}
 }
 
-func (headache *Headache) UpdateFile(change vcs.FileChange, currentHeaderDetectionRegex *regexp.Regexp, newHeaderTemplate string) {
+func (remedy *Remedy) UpdateFile(change vcs.FileChange, currentHeaderDetectionRegex *regexp.Regexp, newHeaderTemplate string) {
 	path := change.Path
-	bytes, err := headache.Fs.FileReader.Read(path)
+	bytes, err := remedy.Fs.FileReader.Read(path)
 	if err != nil {
-		log.Fatalf("headache execution error, cannot read file %s\n\t%v", path, err)
+		log.Fatalf("remedy execution error, cannot read file %s\n\t%v", path, err)
 	}
 
 	fileContents := string(bytes)
@@ -58,10 +58,10 @@ func (headache *Headache) UpdateFile(change vcs.FileChange, currentHeaderDetecti
 
 	finalHeaderContent, err := insertYears(newHeaderTemplate, &change, existingHeader)
 	if err != nil {
-		log.Fatalf("headache execution error, cannot parse header for file %s\n\t%v", path, err)
+		log.Fatalf("remedy execution error, cannot parse header for file %s\n\t%v", path, err)
 	}
 	newContents := append([]byte(fmt.Sprintf("%s%s", finalHeaderContent, "\n\n")), []byte(fileContents)...)
-	headache.writeToFile(path, newContents)
+	remedy.writeToFile(path, newContents)
 }
 
 func insertYears(template string, change *vcs.FileChange, existingHeader string) (string, error) {
@@ -109,14 +109,14 @@ func ComputeCopyrightYears(change *vcs.FileChange, existingHeader string) (int, 
 	return creationYear, creationYear, nil
 }
 
-func (headache *Headache) writeToFile(path string, newContents []byte) {
-	file, err := headache.Fs.FileWriter.Open(path, os.O_WRONLY|os.O_TRUNC, os.ModeAppend)
+func (remedy *Remedy) writeToFile(path string, newContents []byte) {
+	file, err := remedy.Fs.FileWriter.Open(path, os.O_WRONLY|os.O_TRUNC, os.ModeAppend)
 	if err != nil {
-		log.Fatalf("headache execution error, cannot open file %s\n\t%v", path, err)
+		log.Fatalf("remedy execution error, cannot open file %s\n\t%v", path, err)
 	}
 	defer fs.UnsafeClose(file)
 	err = file.Write(newContents)
 	if err != nil {
-		log.Fatalf("headache execution error, cannot write to file %s\n\t%v", path, err)
+		log.Fatalf("remedy execution error, cannot write to file %s\n\t%v", path, err)
 	}
 }

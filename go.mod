@@ -1,4 +1,4 @@
-module github.com/fbiville/headache
+module github.com/elzorrorebelde/remedy
 
 go 1.12
 

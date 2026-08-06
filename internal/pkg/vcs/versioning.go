@@ -18,7 +18,7 @@ package vcs
 
 import (
 	"fmt"
-	. "github.com/fbiville/headache/internal/pkg/helper"
+	. "github.com/elzorrorebelde/remedy/internal/pkg/helper"
 	"strconv"
 	. "strings"
 	"time"
