@@ -119,7 +119,7 @@ func combineRegexes(styles []CommentStyle, getLine func(CommentStyle) string) st
 		if line := commentSymbol; line != "" {
 			regex := escape(line)
 			// spaces may be formatted away - make the space optional
-			regex = strings.Replace(regex, " ", " ?", -1)
+			regex = strings.ReplaceAll(regex, " ", " ?")
 			regexes = append(regexes, regex)
 		}
 	}
@@ -127,7 +127,7 @@ func combineRegexes(styles []CommentStyle, getLine func(CommentStyle) string) st
 }
 
 func escape(str string) string {
-	return strings.Replace(regexp.QuoteMeta(str), "/", `\/`, -1)
+	return strings.ReplaceAll(regexp.QuoteMeta(str), "/", `\/`)
 }
 
 func injectDataRegex(result string, data map[string]string) (string, error) {

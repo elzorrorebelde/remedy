@@ -230,7 +230,7 @@ func (evt *ExecutionVcsTracker) getLegacyExecutionConfigurationPath(trackingCont
 	if err != nil {
 		return "", err
 	}
-	if result == nil || len(result) < 2 {
+	if len(result) < 2 {
 		return "", nil
 	}
 	return result[1], nil
@@ -244,7 +244,7 @@ func (evt *ExecutionVcsTracker) getTrackerFilePath() (string, error) {
 	path := fmt.Sprintf("%s/%s", root, ".remedy-run")
 	info, err := evt.FileSystem.FileReader.Stat(path)
 	if os.IsNotExist(err) {
-		return path, err
+		return "", err
 	}
 	if err != nil {
 		return "", err

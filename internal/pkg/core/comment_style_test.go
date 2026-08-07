@@ -18,7 +18,7 @@ package core_test
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 	"sort"
 	"strings"
 
@@ -88,10 +88,11 @@ func namesOf(styles map[string]CommentStyle) []string {
 }
 
 func sortedStylesInSchema(schemaFileLocation string) []string {
-	bytes, err := ioutil.ReadFile(schemaFileLocation)
+	bytes, err := os.ReadFile(schemaFileLocation)
 	Expect(err).NotTo(HaveOccurred())
 	var schema RemedySchema
 	err = json.Unmarshal(bytes, &schema)
+	Expect(err).NotTo(HaveOccurred())
 	return schema.SortedStyleNames()
 }
 

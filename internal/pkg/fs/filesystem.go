@@ -17,7 +17,6 @@
 package fs
 
 import (
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -59,7 +58,7 @@ func (*OsFileWriter) Open(name string, mask int, permissions os.FileMode) (File,
 }
 
 func (*OsFileWriter) Write(path string, contents string, permissions os.FileMode) error {
-	return ioutil.WriteFile(path, []byte(contents), permissions)
+	return os.WriteFile(path, []byte(contents), permissions)
 }
 
 type File interface {
@@ -89,7 +88,7 @@ type FileReader interface {
 type OsFileReader struct{}
 
 func (*OsFileReader) Read(path string) ([]byte, error) {
-	return ioutil.ReadFile(path)
+	return os.ReadFile(path)
 }
 func (*OsFileReader) Stat(path string) (os.FileInfo, error) {
 	return os.Stat(path)

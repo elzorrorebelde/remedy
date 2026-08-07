@@ -18,10 +18,12 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"strings"
+
 	"github.com/elzorrorebelde/remedy/internal/pkg/fs"
 	json_schema "github.com/xeipuuv/gojsonschema"
-	"strings"
 )
 
 type ConfigurationLoader interface {
@@ -55,9 +57,9 @@ func (loader *ConfigurationFileLoader) ValidateAndLoad(path string) (*Configurat
 	if err != nil {
 		return nil, err
 	}
-	errors := result.Errors()
-	if len(errors) > 0 {
-		return nil, fmt.Errorf(report(errors))
+	errs := result.Errors()
+	if len(errs) > 0 {
+		return nil, report(errs)
 	}
 	configuration.Path = &path
 	return configuration, nil
@@ -80,16 +82,15 @@ func (loader *ConfigurationFileLoader) LoadBytes(configurationPayload []byte) (*
 	return &result, nil
 }
 
-func report(errors []json_schema.ResultError) string {
-	builder := strings.Builder{}
-	for _, validationError := range errors {
+func report(errs []json_schema.ResultError) error {
+	var err error
+	for _, validationError := range errs {
 		details := validationError.Details()
 		field := details["field"]
-		builder.WriteString(fmt.Sprintf("Error with field '%s': %s", field, description(field, validationError)))
-		builder.WriteString("\n")
+		err = errors.Join(fmt.Errorf("error with field '%s': %s", field, description(field, validationError)))
 	}
-	result := builder.String()
-	return result[:len(result)-1]
+
+	return err
 }
 
 func description(field interface{}, validationError json_schema.ResultError) string {

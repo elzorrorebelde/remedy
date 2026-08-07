@@ -255,13 +255,6 @@ var _ = Describe("Configuration loader", func() {
 
 })
 
-func min(a, b int) int {
-	if a <= b {
-		return a
-	}
-	return b
-}
-
 type LocalSchemaLoader struct{}
 
 func (*LocalSchemaLoader) Load(schemaLocation string) *json.Schema {

@@ -62,7 +62,7 @@ func SupportedStyles() []CommentStyle {
 func ParseCommentStyle(name string) CommentStyle {
 	commentStyles := SupportedStyleCatalog()
 	for styleName, style := range commentStyles {
-		if strings.ToLower(styleName) == strings.ToLower(name) {
+		if strings.EqualFold(styleName, name) {
 			return style
 		}
 	}

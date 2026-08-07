@@ -18,15 +18,15 @@ package vcs
 
 import (
 	"fmt"
-	. "github.com/elzorrorebelde/remedy/internal/pkg/helper"
+	"github.com/elzorrorebelde/remedy/internal/pkg/helper"
 	"strconv"
-	. "strings"
+	"strings"
 	"time"
 )
 
 type VersioningClient interface {
 	GetChanges(revision string) ([]FileChange, error)
-	AddMetadata(changes []FileChange, clock Clock) ([]FileChange, error)
+	AddMetadata(changes []FileChange, clock helper.Clock) ([]FileChange, error)
 	GetClient() Vcs
 }
 
@@ -63,7 +63,7 @@ func (client *Client) GetChanges(revision string) ([]FileChange, error) {
 	return merge(committedChanges, uncommittedChanges), nil
 }
 
-func (client *Client) AddMetadata(changes []FileChange, clock Clock) ([]FileChange, error) {
+func (client *Client) AddMetadata(changes []FileChange, clock helper.Clock) ([]FileChange, error) {
 	for i, change := range changes {
 		history, err := GetFileHistory(client.Vcs, change.Path, clock)
 		if err != nil {
@@ -87,23 +87,23 @@ func GetCommittedChanges(vcs Vcs, revision string) ([]FileChange, error) {
 		return nil, err
 	}
 	result := make([]FileChange, 0)
-	for _, line := range Split(output, "\n") {
+	for _, line := range strings.Split(output, "\n") {
 		if line == "" {
 			continue
 		}
-		statusName := SplitN(line, "\t", 2)
-		status := Trim(statusName[0], " ")
+		statusName := strings.SplitN(line, "\t", 2)
+		status := strings.Trim(statusName[0], " ")
 		switch {
 		case status == "D":
 			// ignore
-		case HasPrefix(status, "R"):
-			statusName := SplitN(line, "\t", 3)
+		case strings.HasPrefix(status, "R"):
+			statusName := strings.SplitN(line, "\t", 3)
 			result = append(result, FileChange{
-				Path: Trim(statusName[2], " "),
+				Path: strings.Trim(statusName[2], " "),
 			})
 		default:
 			result = append(result, FileChange{
-				Path: Trim(statusName[1], " "),
+				Path: strings.Trim(statusName[1], " "),
 			})
 		}
 	}
@@ -119,23 +119,23 @@ func GetUncommittedChanges(vcs Vcs) ([]FileChange, error) {
 	if output == "" {
 		return result, nil
 	}
-	for _, line := range Split(output, "\n") {
+	for _, line := range strings.Split(output, "\n") {
 		if line == "" {
 			continue
 		}
-		statusName := SplitN(Trim(line, " "), " ", 2)
-		statuses := Trim(statusName[0], " ")
-		if Index(statuses, "D") != -1 {
+		statusName := strings.SplitN(strings.Trim(line, " "), " ", 2)
+		statuses := strings.Trim(statusName[0], " ")
+		if !strings.Contains(statuses, "D") {
 			continue
 		}
 		result = append(result, FileChange{
-			Path: Trim(statusName[1], " "),
+			Path: strings.Trim(statusName[1], " "),
 		})
 	}
 	return result, nil
 }
 
-func GetFileHistory(vcs Vcs, file string, clock Clock) (*FileHistory, error) {
+func GetFileHistory(vcs Vcs, file string, clock helper.Clock) (*FileHistory, error) {
 	output, err := vcs.Log("--follow", "--name-status", "--format=%at", "--", file)
 	if err != nil {
 		return nil, err
@@ -162,11 +162,11 @@ func GetFileHistory(vcs Vcs, file string, clock Clock) (*FileHistory, error) {
 
 func getCommitTimestamps(file string, log string) ([]int64, error) {
 	var result []int64
-	lines := Split(Replace(log, "\n\n", "\n", -1), "\n")
+	lines := strings.Split(strings.ReplaceAll(log, "\n\n", "\n"), "\n")
 	lines = lines[0 : len(lines)-1]
 	for i := 1; i < len(lines); i += 2 {
 		line := lines[i]
-		nameStatus := Split(line, "\t")[0]
+		nameStatus := strings.Split(line, "\t")[0]
 		if nameStatus == duplicatedRenamedContents || nameStatus == duplicatedCopiedContents {
 			continue
 		}

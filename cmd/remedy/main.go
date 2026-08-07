@@ -18,7 +18,7 @@ package main
 
 import (
 	"flag"
-	. "github.com/elzorrorebelde/remedy/internal/pkg/core"
+	"github.com/elzorrorebelde/remedy/internal/pkg/core"
 	"github.com/elzorrorebelde/remedy/internal/pkg/fs"
 	"log"
 )
@@ -27,25 +27,25 @@ func main() {
 	log.Print("Starting...")
 
 	// dependency graph - begin
-	environment := DefaultEnvironment()
+	environment := core.DefaultEnvironment()
 	fileSystem := environment.FileSystem
-	configLoader := &ConfigurationFileLoader{
+	configLoader := &core.ConfigurationFileLoader{
 		Reader:         fileSystem.FileReader,
 		SchemaLocation: environment.SchemaLocation,
-		SchemaLoader:   &JsonSchemaFileLoader{},
+		SchemaLoader:   &core.JsonSchemaFileLoader{},
 	}
-	executionTracker := &ExecutionVcsTracker{
+	executionTracker := &core.ExecutionVcsTracker{
 		Versioning:   environment.VersioningClient.GetClient(),
 		FileSystem:   fileSystem,
 		Clock:        environment.Clock,
 		ConfigLoader: configLoader,
 	}
-	configurationResolver := &ConfigurationResolver{
+	configurationResolver := &core.ConfigurationResolver{
 		Environment:      environment,
 		ExecutionTracker: executionTracker,
 		PathMatcher:      &fs.ZglobPathMatcher{},
 	}
-	remedy := &Remedy{Fs: fileSystem}
+	remedy := &core.Remedy{Fs: fileSystem}
 	// dependency graph - end
 
 	configFile, configuration := loadConfiguration(configLoader, configurationResolver)
@@ -61,7 +61,7 @@ func main() {
 	log.Print("Done!")
 }
 
-func loadConfiguration(configLoader *ConfigurationFileLoader, configResolver *ConfigurationResolver) (*string, *ChangeSet) {
+func loadConfiguration(configLoader *core.ConfigurationFileLoader, configResolver *core.ConfigurationResolver) (*string, *core.ChangeSet) {
 	configFile := flag.String("configuration", "remedy.json", "Path to configuration file")
 	flag.Parse()
 

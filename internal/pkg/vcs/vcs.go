@@ -18,7 +18,7 @@ package vcs
 
 import (
 	"fmt"
-	. "github.com/elzorrorebelde/remedy/internal/pkg/helper"
+	"github.com/elzorrorebelde/remedy/internal/pkg/helper"
 	"os/exec"
 	"strings"
 )
@@ -36,10 +36,10 @@ type Vcs interface {
 
 type Git struct{}
 func (*Git) Status(args ...string) (string, error) {
-	return git(PrependString("status", args)...)
+	return git(helper.PrependString("status", args)...)
 }
 func (*Git) Diff(args ...string) (string, error) {
-	return git(PrependString("diff", args)...)
+	return git(helper.PrependString("diff", args)...)
 }
 func (g *Git) LatestRevision(file string) (string, error) {
 	result, err := g.Log("-1", `--format=%H`, "--", file)
@@ -49,7 +49,7 @@ func (g *Git) LatestRevision(file string) (string, error) {
 	return strings.Trim(result, "\n"), nil
 }
 func (*Git) Log(args ...string) (string, error) {
-	return git(PrependString("log", args)...)
+	return git(helper.PrependString("log", args)...)
 }
 func (*Git) ShowContentAtRevision(path string, revision string) (string, error) {
 	if revision == "" {
